@@ -1,0 +1,22 @@
+import numpy as np
+
+def random_genome(gl=1000000, GC=50, seq_id='random_genome'):
+    """Generate a random genome sequence in FASTA format."""
+    # Generate random DNA sequence
+    base = ['A', 'T', 'C', 'G']
+    base_distr = [(1 - float(GC / 100)) / 2, (1 - float(GC / 100)) / 2, float(GC / 100) / 2, float(GC / 100) / 2]
+    seq = ''.join(np.random.choice(base, gl, p=base_distr))
+    
+    # Construct FASTA-formatted string
+    fasta_str = f'>{seq_id}\n{seq}\n'
+    
+    return fasta_str
+
+def write_fasta(file_path, fasta_content):
+    """Write FASTA content to a file."""
+    with open(file_path, 'w') as f:
+        f.write(fasta_content)
+
+# Example usage:
+random_genome_seq = random_genome(gl=1000, GC=40, seq_id='random_genome_1')
+write_fasta('/home/zia/data/New_script/random_genome.fasta', random_genome_seq)
